@@ -21,11 +21,10 @@ import torch.optim as optim
 import numpy as np
 from torchvision import transforms
 from torch.utils.data import DataLoader
-from torchvision import transforms as dt
 
 from model.stargan_model import StarGenerator, StarDiscriminator
 import util.util as util
-from util.custom_transforms import PolygonMask
+from util.custom_transforms import *
 from util.util import Phase
 from util.util import Mode
 from util.replay import ReplayMemory
@@ -460,11 +459,11 @@ class FaceGenStarGAN():
         crop_size = 178
         image_size = 128
         transform_options = transforms.Compose([PolygonMask(),
-                                                dt.RandomHorizontalFlip(),
-                                                dt.CenterCrop(crop_size),
-                                                dt.Resize(image_size),
-                                                dt.ToTensor(),
-                                                dt.Normalize(mean=(0.5,0.5,0.5),
+                                                RandomHorizontalFlip(),
+                                                CenterCrop(crop_size),
+                                                Resize(image_size),
+                                                ToTensor(),
+                                                Normalize(mean=(0.5,0.5,0.5),
                                                     std=(0.5,0.5,0.5))])
 
         dataset_func = self.config.dataset.func
